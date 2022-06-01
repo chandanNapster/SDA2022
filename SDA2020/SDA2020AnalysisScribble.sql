@@ -138,7 +138,7 @@ SELECT *
 	 --PLACED STUDENT ANALYSIS
 	 SELECT *
 	   FROM [SDA2020].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
-	  WHERE tbl.Status LIKE '%placed%'
+	  WHERE tbl.Status LIKE '%placed%' AND tbl.CTC > 20
 
 --PLACED STUDENTS GROUPED BASED ON COURSE	
 
@@ -217,3 +217,5 @@ SELECT  MAX(grup.CTC)
 	      FROM [SDA2020].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
+
+
