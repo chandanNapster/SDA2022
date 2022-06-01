@@ -250,3 +250,30 @@ SELECT  MAX(grup.CTC)
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
 
 
+--HIGHLY EMPLOYBLE STUDENTS
+
+--STUDENTS WITH ATLEAST 2 OFFERS
+ SELECT *
+  FROM [SDA2021].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+ WHERE tbl.Status = 'placed' 
+   AND (tbl.[2nd Offer] IS NOT NULL 
+		OR tbl.[3rd Offer] IS NOT NULL 
+		OR tbl.[4th Offer] IS NOT NULL)
+
+
+ --STUDENTS WITH ATLEAST 3 OFFERS
+ SELECT *
+  FROM [SDA2021].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+ WHERE tbl.Status = 'placed' 
+   AND tbl.[2nd Offer] IS NOT NULL 
+   AND tbl.[3rd Offer] IS NOT NULL
+
+ --STUDENTS WITH MORE THAN 3 OFFERS
+ SELECT *
+  FROM [SDA2021].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+ WHERE tbl.Status = 'placed' 
+   AND tbl.[2nd Offer] IS NOT NULL 
+   AND tbl.[3rd Offer] IS NOT NULL 
+   AND tbl.[4th Offer] IS NOT NULL
+
+

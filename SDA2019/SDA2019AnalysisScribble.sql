@@ -224,4 +224,6 @@ SELECT *
  WHERE tbl.Status = 'placed' 
 
  --HIGHLY EMPLOYBLE STUDENTS
-
+ SELECT *
+  FROM [SDA2019].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+ WHERE tbl.Status = 'placed' AND (tbl.[2nd Offer] IS NOT NULL)
