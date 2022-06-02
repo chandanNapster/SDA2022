@@ -8,65 +8,154 @@
 BEGIN TRANSACTION
 
 CREATE TABLE #Placed2019(
-	BIN VARCHAR(255),
+	BIN VARCHAR(2),
 	COMPANY VARCHAR(250),
 	COURSE VARCHAR(250),
 	CTC MONEY,
-	NUM_OF_STIUDENTS_PLACED NUMERIC(20)
+	NUM_OF_STUDENTS_PLACED NUMERIC(20),
+	BIN_DESC VARCHAR(255)
 )
 
 INSERT INTO #Placed2019
-SELECT 'BIN05'   AS BIN, 
-		grup.Company AS COMPANY, 
-		grup.Course  AS COURSE, 
-		grup.CTC     AS CTC, 
-		grup.TOTAL_NUM_OF_PLACED_STUDENTS AS NUM_STUDENTS_PLACED
+SELECT  1, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'0 to 2.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2019].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
- WHERE grup.CTC > 0 AND grup.CTC <=  5
+ WHERE grup.CTC > 0 AND grup.CTC <=  2.5
  UNION
- SELECT 'BIN510' AS BIN, grup.Company, grup.Course, grup.CTC, grup.TOTAL_NUM_OF_PLACED_STUDENTS
+ SELECT 2, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'2.5 to 5 Lakhs Per Annum'
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2019].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
-  WHERE grup.CTC > 5 AND grup.CTC <= 10
+  WHERE grup.CTC > 2.5 AND grup.CTC <= 5
   UNION
- SELECT 'BIN1015' AS BIN, grup.Company, grup.Course, grup.CTC, grup.TOTAL_NUM_OF_PLACED_STUDENTS
+ SELECT 3, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'5 to 7.5 Lakhs Per Annum'
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2019].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
- WHERE grup.CTC > 10 AND grup.CTC <= 15
+ WHERE grup.CTC > 5 AND grup.CTC <= 7.5
  UNION
- SELECT 'BIN1520' AS BIN, grup.Company, grup.Course, grup.CTC, grup.TOTAL_NUM_OF_PLACED_STUDENTS
+ SELECT 4, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'7.5 to 10 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2019].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
- WHERE grup.CTC > 15 AND grup.CTC <= 20
+ WHERE grup.CTC > 7.5 AND grup.CTC <= 10
  UNION
- SELECT 'BIN20100' AS BIN, grup.Company, grup.Course, grup.CTC, grup.TOTAL_NUM_OF_PLACED_STUDENTS
+ SELECT 5, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'10 to 12.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2019].[dbo].['Source Data$'_xlnm#_FilterDatabase] AS tbl
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
- WHERE grup.CTC > 20
+ WHERE grup.CTC > 10 AND grup.CTC <=12.5
+ UNION
+ SELECT 6, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'12.5 to 15 Lakhs Per Annum'
+  FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
+	     WHERE tbl.Status LIKE '%placed%' 
+      GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
+ WHERE grup.CTC > 12.5 AND grup.CTC <=15
+ UNION
+ SELECT 7, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'15 to 17.5 Lakhs Per Annum'
+  FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
+	     WHERE tbl.Status LIKE '%placed%' 
+      GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
+ WHERE grup.CTC > 15 AND grup.CTC <=17.5
+ UNION
+ SELECT 8, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'17.5 to 20 Lakhs Per Annum'
+  FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
+	     WHERE tbl.Status LIKE '%placed%' 
+      GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
+ WHERE grup.CTC > 17.5 AND grup.CTC <=20
+ UNION
+ SELECT 9, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'20 to 25 Lakhs Per Annum'
+  FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
+	     WHERE tbl.Status LIKE '%placed%' 
+      GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
+ WHERE grup.CTC > 20 AND grup.CTC <=25
+ UNION
+ SELECT 10, 
+		grup.Company, 
+		grup.Course, 
+		grup.CTC, 
+		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
+		'25 Lakhs Per Annum and Above'
+  FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
+	      FROM [SDA2019].[dbo].[SourceData] AS tbl
+	     WHERE tbl.Status LIKE '%placed%' 
+      GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
+ WHERE grup.CTC > 25
 
 
- --SELECT COUNT(NUM_OF_STIUDENTS_PLACED)
- --  FROM #Placed2019
+ --SELECT *
+ --  FROM #Placed2020
 
-  SELECT pld.BIN, SUM(pld.NUM_OF_STIUDENTS_PLACED) AS NUM_OF_STUDENTS
-     FROM #Placed2019 AS pld
- GROUP BY pld.BIN
-	UNION
-   SELECT 'TOTAL', SUM(pld.NUM_OF_STIUDENTS_PLACED)
-     FROM #Placed2019 AS pld
+  SELECT pld.BIN, SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS_PLACED, pld.BIN_DESC
+    FROM #Placed2019 AS pld
+GROUP BY pld.BIN, pld.BIN_DESC
+UNION
+ SELECT 'TOTAL', SUM(NUM_OF_STUDENTS_PLACED), ''
+   FROM #Placed2019
+
+ -- SELECT pld.BIN, SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS, pld.BIN_DESC
+ --    FROM #Placed2019 AS pld
+ --GROUP BY pld.BIN, pld.BIN_DESC
+	--UNION
+   --SELECT 'TOTAL', SUM(pld.NUM_OF_STUDENTS_PLACED)
+   --  FROM #Placed2019 AS pld
 
 
-DROP TABLE #Placed2019
+DROP TABLE #Placed2019 
 
 ROLLBACK
