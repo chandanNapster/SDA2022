@@ -462,33 +462,171 @@ SELECT  1,
 		(9,'20 to 25 Lakhs Per Annum'),
 		(10,'25 Lakhs Per Annum and Above')
 		
- SELECT b.BIN AS Bin,
-		b.BIN_DESC AS Bin_Description,
-		plt21.NUM_OF_STUDENTS AS Total_students_Placed_2021,
-		plt20.NUM_OF_STUDENTS AS Total_students_Placed_2020,
-		plt19.NUM_OF_STUDENTS AS Total_students_Placed_2019
-  FROM #BINS AS b
-  LEFT
-  JOIN (SELECT pld.BIN, 
-				SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS,	
-				pld.BIN_DESC
-           FROM #Placed2021 AS pld
-       GROUP BY pld.BIN, 
-				pld.BIN_DESC) AS plt21 ON b.BIN = plt21.BIN
-   LEFT 
-   JOIN (SELECT pld.BIN, 
-				SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS, 
-				pld.BIN_DESC
-			FROM #Placed2020 AS pld
-		GROUP BY pld.BIN, 
-				 pld.BIN_DESC) AS plt20 ON b.BIN = plt20.BIN
-   LEFT 
-   JOIN (SELECT pld.BIN, 
-				SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS, 
-				pld.BIN_DESC
-			FROM #Placed2019 AS pld
-		GROUP BY pld.BIN, 
-				 pld.BIN_DESC) AS plt19 ON b.BIN = plt19.BIN
+ --SELECT b.BIN AS Bin,
+	--	b.BIN_DESC AS Bin_Description,
+	--	plt21.NUM_OF_STUDENTS AS Total_students_Placed_2021,
+	--	plt20.NUM_OF_STUDENTS AS Total_students_Placed_2020,
+	--	plt19.NUM_OF_STUDENTS AS Total_students_Placed_2019
+ -- FROM #BINS AS b
+ -- LEFT
+ -- JOIN (SELECT pld.BIN, 
+	--			SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS,	
+	--			pld.BIN_DESC
+ --          FROM #Placed2021 AS pld
+ --      GROUP BY pld.BIN, 
+	--			pld.BIN_DESC) AS plt21 ON b.BIN = plt21.BIN
+ --  LEFT 
+ --  JOIN (SELECT pld.BIN, 
+	--			SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS, 
+	--			pld.BIN_DESC
+	--		FROM #Placed2020 AS pld
+	--	GROUP BY pld.BIN, 
+	--			 pld.BIN_DESC) AS plt20 ON b.BIN = plt20.BIN
+ --  LEFT 
+ --  JOIN (SELECT pld.BIN, 
+	--			SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS, 
+	--			pld.BIN_DESC
+	--		FROM #Placed2019 AS pld
+	--	GROUP BY pld.BIN, 
+	--			 pld.BIN_DESC) AS plt19 ON b.BIN = plt19.BIN
+
+DECLARE @top INT
+
+SET @top =(SELECT CEILING( COUNT(*)*.2) 
+			FROM (SELECT DISTINCT p.COMPANY
+					FROM #Placed2020 AS p
+					GROUP BY p.COMPANY) AS COMPANIES)
+
+SELECT 'TOP 20 Percent Companies in which highest number of students were placed' + 'The Company count is' + STR(@top)
+
+--SELECT TOP (@top)  p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, p.BIN
+--         FROM #Placed2020 as p
+--     GROUP BY p.COMPANY, p.BIN
+--     ORDER BY 2 DESC
+
+
+--SELECT 'Top companies that hired students and average CTC'
+
+SELECT plt20.COMPANY, SUM(p.CTC*p.NUM_OF_STUDENTS_PLACED)/SUM(p.NUM_OF_STUDENTS_PLACED), AVG(p.CTC), plt20.BIN
+	FROM (SELECT TOP (@top)  p.COMPANY, 
+							 SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, 
+							 p.BIN
+			FROM #Placed2020 as p
+		GROUP BY p.COMPANY, 
+				 p.BIN
+		ORDER BY placed DESC) AS plt20
+    JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
+	                     AND plt20.BIN = p.BIN
+GROUP BY plt20.COMPANY, plt20.BIN
+--SELECT TOP (@top) p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS placed
+--         FROM #Placed2020 as p
+--     GROUP BY p.COMPANY
+--     ORDER BY 2 DESC
+
+
+
+--SELECT plt.COMPANY, AVG(p.CTC)
+--FROM  (SELECT TOP 10 p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS placed
+--         FROM #Placed2020 as p
+--     GROUP BY p.COMPANY
+--     ORDER BY placed DESC) AS plt
+--JOIN #Placed2020 AS p ON plt.COMPANY = p.COMPANY
+--GROUP BY plt.COMPANY
+
+SELECT 'BOTTOM 20 Percent Companies in which lowest number of students were placed' + 'The Company Count is' + STR(@top)
+
+--SELECT TOP (@top) p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, p.BIN
+--         FROM #Placed2020 as p
+--     GROUP BY p.COMPANY, p.BIN
+--     ORDER BY 2 ASC
+
+
+SELECT plt20.COMPANY, SUM(p.CTC * p.NUM_OF_STUDENTS_PLACED)/SUM(p.NUM_OF_STUDENTS_PLACED), AVG(p.CTC), plt20.BIN
+FROM (SELECT TOP (@top) p.COMPANY, 
+						SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, 
+						p.BIN
+         FROM #Placed2020 as p
+     GROUP BY p.COMPANY, 
+			  p.BIN
+     ORDER BY placed ASC) AS plt20
+JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
+                     AND plt20.BIN = p.BIN
+GROUP BY plt20.COMPANY, plt20.BIN
+
+--SELECT TOP (@top) p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS placed
+--         FROM #Placed2020 as p
+--     GROUP BY p.COMPANY
+--     ORDER BY 2 ASC
+
+
+--SELECT plt.COMPANY, SUM(p.CTC * p.NUM_OF_STUDENTS_PLACED)/SUM(p.NUM_OF_STUDENTS_PLACED), AVG(p.CTC)
+--FROM  (SELECT TOP 10 p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS placed
+--         FROM #Placed2020 as p
+--     GROUP BY p.COMPANY
+--     ORDER BY placed ASC) AS plt
+--JOIN #Placed2020 AS p ON plt.COMPANY = p.COMPANY
+--GROUP BY plt.COMPANY
+
+SELECT 'TOP 20 PERCENT COMPANIES THAT OFFERED THE MAXIMUM CTC'
+
+SELECT p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED), p.BIN, plt20.Avg_CTC
+FROM (SELECT TOP (@top) plt.COMPANY, 
+					SUM(plt.CTC * plt.NUM_OF_STUDENTS_PLACED)/SUM(plt.NUM_OF_STUDENTS_PLACED) AS Avg_CTC, 
+					plt.BIN AS BIN
+			FROM #Placed2020 AS plt
+		GROUP BY plt.COMPANY, 
+				 plt.BIN
+		ORDER BY 2 DESC) AS plt20
+JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
+					 AND plt20.BIN = p.BIN
+GROUP BY p.COMPANY, 
+		 p.BIN,
+		 plt20.Avg_CTC
+ORDER BY plt20.Avg_CTC DESC
+
+
+SELECT 'BOTTOM 20 PERCENT COMPANIES THAT OFFERED THE MINIMUM CTC'
+
+SELECT p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED),p.BIN, plt20.Avg_CTC
+ FROM (SELECT TOP (@top) plt.COMPANY, 
+					SUM(plt.CTC * plt.NUM_OF_STUDENTS_PLACED)/SUM(plt.NUM_OF_STUDENTS_PLACED) AS Avg_CTC, 
+					plt.BIN AS BIN
+    FROM #Placed2020 AS plt
+GROUP BY plt.COMPANY, 
+		 plt.BIN
+ORDER BY 2 ASC) AS plt20
+JOIN #Placed2020 AS p ON p.COMPANY = plt20.COMPANY 
+                     AND p.BIN = plt20.BIN
+GROUP BY p.COMPANY, 
+		 p.BIN,
+		 plt20.Avg_CTC
+ORDER BY plt20.Avg_CTC DESC
+
+
+
+--SELECT *
+--  FROM( SELECT TOP 10 plt.COMPANY, plt.CTC
+--		  FROM #Placed2020 AS plt
+--      GROUP BY plt.COMPANY, plt.CTC
+--      ORDER BY plt.CTC DESC) AS plt20
+--  JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
+-- ORDER BY p.CTC DESC
+
+
+-- SELECT *
+--  FROM( SELECT TOP 10 plt.COMPANY, plt.CTC
+--		  FROM #Placed2020 AS plt
+--      GROUP BY plt.COMPANY, plt.CTC
+--      ORDER BY plt.CTC ASC) AS plt20
+--  JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
+-- ORDER BY p.CTC ASC
+
+
+
+
+
+
+
 
 
 DROP TABLE #Placed2021
