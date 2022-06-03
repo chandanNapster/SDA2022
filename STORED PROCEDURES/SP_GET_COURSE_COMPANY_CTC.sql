@@ -14,12 +14,13 @@ DECLARE @sql NVARCHAR(255)
 
 
 IF @year = 2021
-	SET @sql = 'sp_get_Course_Company_CTC_2021'
+	SET @sql = 'sp_get_Course_Company_CTC_2021_v2'
 ELSE IF @year = 2020
 	SET @sql = 'sp_get_Course_Company_CTC_2020'
 ELSE IF @year = 2019
-	SET @sql = '[SDA2021].[dbo].[SourceData]'
-
+	SET @sql = 'sp_get_Course_Company_CTC_2019'
+ELSE 
+	SELECT 'NOT A VALID YEAR'
 
 --SET @sql = 'SELECT * FROM ' + @tablename
 
@@ -32,7 +33,7 @@ EXEC @sql
 
 
 
-EXEC sp_get_Course_Company_CTC '2021' 
+ 
 
 
 
