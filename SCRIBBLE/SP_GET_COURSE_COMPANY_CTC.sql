@@ -14,7 +14,7 @@ DECLARE @sql NVARCHAR(255)
 
 
 IF @year = 2021
-	SET @sql = 'sp_get_Course_Company_CTC_2021_v2'
+	SET @sql = 'sp_get_Course_Company_CTC_2021'
 ELSE IF @year = 2020
 	SET @sql = 'sp_get_Course_Company_CTC_2020'
 ELSE IF @year = 2019
