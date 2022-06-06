@@ -5,9 +5,16 @@
 -- CTC 10-15
 -- CTC 15-20
 -- CTC 20 and ABOVE
-BEGIN TRANSACTION
+USE SDA2020
+GO
 
-CREATE TABLE #Placed2021(
+BEGIN TRANSACTION
+DECLARE @top INT
+DECLARE @percentage FLOAT
+SET @percentage = 0.25
+
+
+CREATE TABLE #Placed2020(
 	BIN VARCHAR(2),
 	COMPANY VARCHAR(250),
 	COURSE VARCHAR(250),
@@ -16,7 +23,7 @@ CREATE TABLE #Placed2021(
 	BIN_DESC VARCHAR(255)
 )
 
-INSERT INTO #Placed2021
+INSERT INTO #Placed2020
 SELECT  1, 
 		grup.Company, 
 		grup.Course, 
@@ -24,7 +31,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'0 to 2.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 0 AND grup.CTC <=  2.5
@@ -36,7 +43,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'2.5 to 5 Lakhs Per Annum'
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData]AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
   WHERE grup.CTC > 2.5 AND grup.CTC <= 5
@@ -48,7 +55,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'5 to 7.5 Lakhs Per Annum'
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 5 AND grup.CTC <= 7.5
@@ -60,7 +67,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'7.5 to 10 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 7.5 AND grup.CTC <= 10
@@ -72,7 +79,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'10 to 12.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 10 AND grup.CTC <=12.5
@@ -84,7 +91,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'12.5 to 15 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 12.5 AND grup.CTC <=15
@@ -96,7 +103,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'15 to 17.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 15 AND grup.CTC <=17.5
@@ -108,7 +115,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'17.5 to 20 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData]AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 17.5 AND grup.CTC <=20
@@ -120,7 +127,7 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'20 to 25 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 20 AND grup.CTC <=25
@@ -132,21 +139,22 @@ SELECT  1,
 		grup.TOTAL_NUM_OF_PLACED_STUDENTS,
 		'25 Lakhs Per Annum and Above'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
-	      FROM [SDA2021].[dbo].[SourceData] AS tbl
+	      FROM [SDA2020].[dbo].[SourceData] AS tbl
 	     WHERE tbl.Status LIKE '%placed%' 
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 25
 
 
- --SELECT *
- --  FROM #Placed2021
+ --SELECT BIN 
+ --  FROM #Placed2020
+ --  GROUP BY BIN 
 
 --  SELECT pld.BIN, SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS_PLACED, pld.BIN_DESC
---    FROM #Placed2021 AS pld
+--    FROM #Placed2020 AS pld
 --GROUP BY pld.BIN, pld.BIN_DESC
 --UNION
 -- SELECT 'TOTAL', SUM(NUM_OF_STUDENTS_PLACED), ''
---   FROM #Placed2021 
+--   FROM #Placed2020
 
  -- SELECT pld.BIN, SUM(pld.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS, pld.BIN_DESC
  --    FROM #Placed2019 AS pld
@@ -156,19 +164,13 @@ SELECT  1,
    --  FROM #Placed2019 AS pld
 
 
-DECLARE @top INT
-DECLARE @percentage FLOAT
 
-SET @percentage = .2
 
-SELECT @percentage
 
 SET @top =(SELECT CEILING( COUNT(*)*(@percentage)) 
 			FROM (SELECT DISTINCT p.COMPANY
-					FROM #Placed2021 AS p
+					FROM #Placed2020 AS p
 					GROUP BY p.COMPANY) AS COMPANIES)
-
-
 
 CREATE TABLE #High_Placed(
 	COMPANY VARCHAR(255),
@@ -199,24 +201,28 @@ CREATE TABLE #Low_CTC_Offered(
 )
 
 
+
+
+
 --SELECT 'TOP 20 PERCENT COMPANIES IN WHICH HIGHEST NUMBER OF STUDENTS WERE PLACED' + 'THE COMPANY COUNT IS' + STR(@top)
 
 INSERT INTO #High_Placed
 
 SELECT plt20.COMPANY, 
-	   SUM(p.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS_PLACED, 
+	   SUM(p.NUM_OF_STUDENTS_PLACED), 
 	   plt20.BIN,
 	   SUM(p.CTC*p.NUM_OF_STUDENTS_PLACED)/SUM(p.NUM_OF_STUDENTS_PLACED) AS AVG_CTC
 	FROM (SELECT TOP (@top)  p.COMPANY, 
 							 SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, 
 							 p.BIN
-			FROM #Placed2021 as p
+			FROM #Placed2020 as p
 		GROUP BY p.COMPANY, 
 				 p.BIN
 		ORDER BY placed DESC) AS plt20
-    JOIN #Placed2021 AS p ON plt20.COMPANY = p.COMPANY 
+    JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
 	                     AND plt20.BIN = p.BIN
-GROUP BY plt20.COMPANY, plt20.BIN
+GROUP BY plt20.COMPANY,
+		 plt20.BIN
 
 
 --SELECT 'BOTTOM 20 PERCENT COMPANIES IN WHICH LOWEST NUMBER OF STUDENTS WERE PLACED' + 'THE COMPANY COUNT IS' + STR(@top)
@@ -229,11 +235,11 @@ SELECT plt20.COMPANY,
 FROM (SELECT TOP (@top) p.COMPANY, 
 						SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, 
 						p.BIN
-         FROM #Placed2021 as p
+         FROM #Placed2020 as p
      GROUP BY p.COMPANY, 
 			  p.BIN
      ORDER BY placed ASC) AS plt20
-JOIN #Placed2021 AS p ON plt20.COMPANY = p.COMPANY 
+JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
                      AND plt20.BIN = p.BIN
 GROUP BY plt20.COMPANY, plt20.BIN
 
@@ -249,11 +255,11 @@ SELECT p.COMPANY,
 FROM (SELECT TOP (@top) plt.COMPANY, 
 					SUM(plt.CTC * plt.NUM_OF_STUDENTS_PLACED)/SUM(plt.NUM_OF_STUDENTS_PLACED) AS Avg_CTC, 
 					plt.BIN AS BIN
-			FROM #Placed2021 AS plt
+			FROM #Placed2020 AS plt
 		GROUP BY plt.COMPANY, 
 				 plt.BIN
 		ORDER BY 2 DESC) AS plt20
-JOIN #Placed2021 AS p ON plt20.COMPANY = p.COMPANY 
+JOIN #Placed2020 AS p ON plt20.COMPANY = p.COMPANY 
 					 AND plt20.BIN = p.BIN
 GROUP BY p.COMPANY, 
 		 p.BIN,
@@ -271,11 +277,11 @@ SELECT p.COMPANY,
  FROM (SELECT TOP (@top) plt.COMPANY, 
 					SUM(plt.CTC * plt.NUM_OF_STUDENTS_PLACED)/SUM(plt.NUM_OF_STUDENTS_PLACED) AS Avg_CTC, 
 					plt.BIN AS BIN
-    FROM #Placed2021 AS plt
+    FROM #Placed2020 AS plt
 GROUP BY plt.COMPANY, 
 		 plt.BIN
 ORDER BY 2 ASC) AS plt20
-JOIN #Placed2021 AS p ON p.COMPANY = plt20.COMPANY 
+JOIN #Placed2020 AS p ON p.COMPANY = plt20.COMPANY 
                      AND p.BIN = plt20.BIN
 GROUP BY p.COMPANY, 
 		 p.BIN,
@@ -319,74 +325,20 @@ SELECT *
                               AND lp.BIN = hc.BIN
 
 
---SELECT 'TOP 20 PERCENT COMPANIES IN WHICH HIGHEST NUMBER OF STUDENTS WERE PLACED' + 'THE COMPANY COUNT IS' + STR(@top)
+SELECT 'HIGH PLACED HIGH CTC'
+SELECT *
+  FROM #High_Placed AS hp
+  JOIN #High_CTC_Offered AS hc ON hp.COMPANY = hc.COMPANY
+							  AND hp.BIN = hc.BIN
 
---SELECT plt20.COMPANY, SUM(p.CTC*p.NUM_OF_STUDENTS_PLACED)/SUM(p.NUM_OF_STUDENTS_PLACED), AVG(p.CTC), plt20.BIN
---	FROM (SELECT TOP (@top)  p.COMPANY, 
---							 SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, 
---							 p.BIN
---			FROM #Placed2021 as p
---		GROUP BY p.COMPANY, 
---				 p.BIN
---		ORDER BY placed DESC) AS plt20
---    JOIN #Placed2021 AS p ON plt20.COMPANY = p.COMPANY 
---	                     AND plt20.BIN = p.BIN
---GROUP BY plt20.COMPANY, plt20.BIN
+SELECT 'LOW PLACED LOW CTC'
+SELECT *
+  FROM #Low_Placed AS lp
+  JOIN #Low_CTC_Offered AS lc ON lp.COMPANY = lc.COMPANY
+							 AND lp.BIN = lc.BIN
 
 
---SELECT 'BOTTOM 20 PERCENT COMPANIES IN WHICH LOWEST NUMBER OF STUDENTS WERE PLACED' + 'THE COMPANY COUNT IS' + STR(@top)
-
---SELECT plt20.COMPANY, SUM(p.CTC * p.NUM_OF_STUDENTS_PLACED)/SUM(p.NUM_OF_STUDENTS_PLACED), AVG(p.CTC), plt20.BIN
---FROM (SELECT TOP (@top) p.COMPANY, 
---						SUM(p.NUM_OF_STUDENTS_PLACED) AS placed, 
---						p.BIN
---         FROM #Placed2021 as p
---     GROUP BY p.COMPANY, 
---			  p.BIN
---     ORDER BY placed ASC) AS plt20
---JOIN #Placed2021 AS p ON plt20.COMPANY = p.COMPANY 
---                     AND plt20.BIN = p.BIN
---GROUP BY plt20.COMPANY, plt20.BIN
-
-
-
---SELECT 'TOP 20 PERCENT COMPANIES THAT OFFERED THE MAXIMUM CTC'
-
---SELECT p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS_PLACED, p.BIN, plt20.Avg_CTC
---FROM (SELECT TOP (@top) plt.COMPANY, 
---					SUM(plt.CTC * plt.NUM_OF_STUDENTS_PLACED)/SUM(plt.NUM_OF_STUDENTS_PLACED) AS Avg_CTC, 
---					plt.BIN AS BIN
---			FROM #Placed2021 AS plt
---		GROUP BY plt.COMPANY, 
---				 plt.BIN
---		ORDER BY 2 DESC) AS plt20
---JOIN #Placed2021 AS p ON plt20.COMPANY = p.COMPANY 
---					 AND plt20.BIN = p.BIN
---GROUP BY p.COMPANY, 
---		 p.BIN,
---		 plt20.Avg_CTC
---ORDER BY plt20.Avg_CTC DESC
-
-
---SELECT 'BOTTOM 20 PERCENT COMPANIES THAT OFFERED THE MINIMUM CTC'
-
---SELECT p.COMPANY, SUM(p.NUM_OF_STUDENTS_PLACED) AS NUM_OF_STUDENTS_PLACED,p.BIN, plt20.Avg_CTC
--- FROM (SELECT TOP (@top) plt.COMPANY, 
---					SUM(plt.CTC * plt.NUM_OF_STUDENTS_PLACED)/SUM(plt.NUM_OF_STUDENTS_PLACED) AS Avg_CTC, 
---					plt.BIN AS BIN
---    FROM #Placed2021 AS plt
---GROUP BY plt.COMPANY, 
---		 plt.BIN
---ORDER BY 2 ASC) AS plt20
---JOIN #Placed2021 AS p ON p.COMPANY = plt20.COMPANY 
---                     AND p.BIN = plt20.BIN
---GROUP BY p.COMPANY, 
---		 p.BIN,
---		 plt20.Avg_CTC
---ORDER BY plt20.Avg_CTC DESC
-
-
-DROP TABLE #Placed2021
+DROP TABLE #Placed2020
 DROP TABLE #High_Placed
 DROP TABLE #Low_Placed
 DROP TABLE #High_CTC_Offered
