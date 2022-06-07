@@ -12,7 +12,7 @@ BEGIN TRANSACTION
 
 DECLARE @top INT
 DECLARE @percentage FLOAT
-SET @percentage = 0.98
+SET @percentage = .35 
 
 CREATE TABLE #Placed2020(
 	BIN INT,
@@ -32,7 +32,8 @@ SELECT  1,
 		'0 to 2.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 0 AND grup.CTC <=  2.5
  UNION
@@ -44,7 +45,8 @@ SELECT  1,
 		'2.5 to 5 Lakhs Per Annum'
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData]AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
   WHERE grup.CTC > 2.5 AND grup.CTC <= 5
   UNION
@@ -56,7 +58,8 @@ SELECT  1,
 		'5 to 7.5 Lakhs Per Annum'
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 5 AND grup.CTC <= 7.5
  UNION
@@ -68,7 +71,8 @@ SELECT  1,
 		'7.5 to 10 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 7.5 AND grup.CTC <= 10
  UNION
@@ -80,7 +84,8 @@ SELECT  1,
 		'10 to 12.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 10 AND grup.CTC <=12.5
  UNION
@@ -92,7 +97,8 @@ SELECT  1,
 		'12.5 to 15 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 12.5 AND grup.CTC <=15
  UNION
@@ -104,7 +110,8 @@ SELECT  1,
 		'15 to 17.5 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 15 AND grup.CTC <=17.5
  UNION
@@ -116,7 +123,8 @@ SELECT  1,
 		'17.5 to 20 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 17.5 AND grup.CTC <=20
  UNION
@@ -128,7 +136,8 @@ SELECT  1,
 		'20 to 25 Lakhs Per Annum'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 20 AND grup.CTC <=25
  UNION
@@ -140,13 +149,10 @@ SELECT  1,
 		'25 Lakhs Per Annum and Above'
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 25
-
-
-
-
 
 
 CREATE TABLE #High_Placed(
@@ -228,8 +234,6 @@ GROUP BY p.COURSE,
 
 
 
-
-
 INSERT INTO #High_CTC_Offered
  SELECT p.COURSE, 
 		SUM(p.NUM_OF_STUDENTS_PLACED) AS NUMBER_OF_STUDENTS_PLACED,
@@ -247,8 +251,6 @@ INSERT INTO #High_CTC_Offered
 GROUP BY p.COURSE, 
 		 plt.AVG_CTC, 
 		 p.BIN										
-
-
 
 
 

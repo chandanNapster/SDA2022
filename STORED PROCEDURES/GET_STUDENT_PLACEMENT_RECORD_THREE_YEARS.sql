@@ -21,7 +21,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 0 AND grup.CTC <=  2.5
  UNION
@@ -34,7 +35,8 @@ SELECT  1,
 		2019
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
   WHERE grup.CTC > 2.5 AND grup.CTC <= 5
   UNION
@@ -47,7 +49,8 @@ SELECT  1,
 		2019
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 5 AND grup.CTC <= 7.5
  UNION
@@ -60,7 +63,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 7.5 AND grup.CTC <= 10
  UNION
@@ -73,7 +77,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 10 AND grup.CTC <=12.5
  UNION
@@ -86,7 +91,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 12.5 AND grup.CTC <=15
  UNION
@@ -99,7 +105,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 15 AND grup.CTC <=17.5
  UNION
@@ -112,7 +119,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 17.5 AND grup.CTC <=20
  UNION
@@ -125,7 +133,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 20 AND grup.CTC <=25
  UNION
@@ -138,7 +147,8 @@ SELECT  1,
 		2019
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2019].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 25
 
@@ -182,7 +192,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 0 AND grup.CTC <=  2.5
  UNION
@@ -195,7 +206,8 @@ SELECT  1,
 		2020
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData]AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
   WHERE grup.CTC > 2.5 AND grup.CTC <= 5
   UNION
@@ -208,7 +220,8 @@ SELECT  1,
 		2020
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 5 AND grup.CTC <= 7.5
  UNION
@@ -221,7 +234,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 7.5 AND grup.CTC <= 10
  UNION
@@ -234,7 +248,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 10 AND grup.CTC <=12.5
  UNION
@@ -247,7 +262,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 12.5 AND grup.CTC <=15
  UNION
@@ -260,7 +276,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 15 AND grup.CTC <=17.5
  UNION
@@ -273,7 +290,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 17.5 AND grup.CTC <=20
  UNION
@@ -286,7 +304,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 20 AND grup.CTC <=25
  UNION
@@ -299,7 +318,8 @@ SELECT  1,
 		2020
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2020].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 25
 
@@ -323,7 +343,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 0 AND grup.CTC <=  2.5
  UNION
@@ -336,7 +357,8 @@ SELECT  1,
 		2021
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
   WHERE grup.CTC > 2.5 AND grup.CTC <= 5
   UNION
@@ -349,7 +371,8 @@ SELECT  1,
 		2021
    FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 5 AND grup.CTC <= 7.5
  UNION
@@ -362,7 +385,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 7.5 AND grup.CTC <= 10
  UNION
@@ -375,7 +399,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 10 AND grup.CTC <=12.5
  UNION
@@ -388,7 +413,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 12.5 AND grup.CTC <=15
  UNION
@@ -401,7 +427,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 15 AND grup.CTC <=17.5
  UNION
@@ -414,7 +441,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData]AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 17.5 AND grup.CTC <=20
  UNION
@@ -427,7 +455,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 20 AND grup.CTC <=25
  UNION
@@ -440,7 +469,8 @@ SELECT  1,
 		2021
   FROM (SELECT tbl.Company, tbl.Course ,tbl.CTC,COUNT(*) AS TOTAL_NUM_OF_PLACED_STUDENTS
 	      FROM [SDA2021].[dbo].[SourceData] AS tbl
-	     WHERE tbl.Status LIKE '%placed%' 
+	     WHERE tbl.Status LIKE '%placed%'
+		   AND tbl.CTC IS NOT NULL
       GROUP BY tbl.Company, tbl.Course, tbl.CTC) AS grup
  WHERE grup.CTC > 25
 
