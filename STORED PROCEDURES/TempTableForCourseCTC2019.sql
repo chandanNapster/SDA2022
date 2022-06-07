@@ -12,7 +12,7 @@ BEGIN TRANSACTION
 
 DECLARE @top INT
 DECLARE @percentage FLOAT
-SET @percentage = 0.50
+SET @percentage = 0.250
 
 CREATE TABLE #Placed2020(
 	BIN INT,
