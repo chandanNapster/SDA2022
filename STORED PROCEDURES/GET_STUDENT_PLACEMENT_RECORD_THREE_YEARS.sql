@@ -498,32 +498,94 @@ FROM (SELECT *
 	  FROM #Placed2021 ) AS tab 
 
 
+CREATE TABLE #Duplicate_Companies_1(
+	COMPANY VARCHAR(255)
+)
+
+
+CREATE TABLE #Duplicate_Companies_2(
+	COMPANY VARCHAR(255)
+)
+
+CREATE TABLE #Duplicate_Companies_3(
+	COMPANY VARCHAR(255)
+)
+
+
 SELECT 'FINDING DUPLICATES COMPANIES'
 
-SELECT DISTINCT t.COMPANY, t1.COMPANY
+--SELECT td.COMPANY
+--FROM #ThreeYearData AS td
+--GROUP BY td.COMPANY
+--ORDER BY td.COMPANY
+
+INSERT INTO #Duplicate_Companies_1
+SELECT DISTINCT t.COMPANY
 FROM #ThreeYearData AS t 
 JOIN #ThreeYearData AS t1 ON t.COMPANY LIKE t1.COMPANY + '% %'
-ORDER BY 1 ASC
 
-
-SELECT 'FINDING DUPLICATE COURSES'
-SELECT DISTINCT t.COURSE, t1.COURSE
+INSERT INTO #Duplicate_Companies_2 
+SELECT DISTINCT t1.COMPANY
 FROM #ThreeYearData AS t
-JOIN #ThreeYearData AS t1 ON t.COURSE LIKE t1.COURSE + '% %'
-
-
-SELECT *
-FROM #ThreeYearData
-WHERE COURSE = 'B.Tech Computer Science Engineering with Spl. In IT Infrastructure Management '
+JOIN #ThreeYearData AS t1 ON t.COMPANY LIKE t1.COMPANY + '% %'
 
 
 
+--SELECT DISTINCT t.COMPANY, t1.COMPANY
+--FROM #ThreeYearData AS t 
+--JOIN #ThreeYearData AS t1 ON t.COMPANY = SOUNDEX(t1.COMPANY)
+--ORDER BY t.COMPANY
 
-SELECT 'ALL COMPANIES'
-SELECT COMPANY, COUNT(*) 
-FROM #ThreeYearData 
-GROUP BY COMPANY
-ORDER BY 1
+INSERT INTO #Duplicate_Companies_3 
+SELECT p.COMPANY
+FROM (SELECT *
+		FROM #Duplicate_Companies_1
+	   UNION
+	  SELECT *
+		FROM #Duplicate_Companies_2) AS p
+
+
+SELECT dc.COMPANY
+FROM #Duplicate_Companies_3 AS dc
+
+
+--SELECT *
+--  FROM #ThreeYearData AS tc
+-- WHERE tc.COMPANY IN (SELECT * FROM #Duplicate_Companies_3)
+
+--SELECT *
+--FROM #ThreeYearData
+--EXCEPT
+--SELECT *
+--  FROM #ThreeYearData AS tc
+-- WHERE tc.COMPANY IN (SELECT * FROM #Duplicate_Companies_3)
+
+--SELECT 'JUST COMPANIES'
+--SELECT p19.COMPANY
+--FROM #Placed2019 AS p19
+--GROUP BY p19.COMPANY
+
+--SELECT p20.COMPANY
+--FROM #Placed2020 AS p20
+--GROUP BY p20.COMPANY
+
+--SELECT p21.COMPANY
+--FROM #Placed2021 AS p21
+--GROUP BY p21.COMPANY
+
+
+--SELECT *
+--FROM #ThreeYearData
+--WHERE COURSE = 'B.Tech Computer Science Engineering with Spl. In IT Infrastructure Management '
+
+
+
+
+--SELECT 'ALL COMPANIES'
+--SELECT COMPANY, COUNT(*) 
+--FROM #ThreeYearData 
+--GROUP BY COMPANY
+--ORDER BY 1
 
 
 --SELECT 'ALL DATA FOR THREE YEARS'
@@ -692,5 +754,8 @@ DROP TABLE #Placed2021
 DROP TABLE #Placed2020
 DROP TABLE #Placed2019
 DROP TABLE #BINS
+DROP TABLE #Duplicate_Companies_1
+DROP TABLE #Duplicate_Companies_2
+DROP TABLE #Duplicate_Companies_3 
 
 ROLLBACK
